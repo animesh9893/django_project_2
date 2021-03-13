@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<style type="text/css">
+		.center {
+			  text-align: center;
+			  margin: auto;
+			  width: 50%;
+			  border: 3px solid green;
+			  padding: 10px;
+			}
+	</style>
+	{% if not status %}
+	<div class="center">
+		<h2>Log In</h2>
+		<form action="{% url 'log_in' %}" method="POST">
+			{% csrf_token %}
+			<pre>User Name : </pre><input type="text" name="user_name"><br>
+			<pre>Password  : </pre><input type="password" name="password"><br>
+			<button type="submit" name="action">Log In</button>
+			{% if not user_name_exist %}
+			<p style="color: red;">User Name Not Exist</p>
+			{% elif not password_is_correct  %}
+			<p style="color: red;">Password is Wrong</p>
+			{% endif %}
+		</form>
+	</div>
+	{% endif %}
+{% endblock content %} 

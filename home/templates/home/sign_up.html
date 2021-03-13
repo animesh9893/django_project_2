@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<style type="text/css">
+		.center {
+			  text-align: center;
+			  margin: auto;
+			  width: 50%;
+			  border: 3px solid green;
+			  padding: 10px;
+			}
+	</style>
+	<div class="center" >
+		<h2>Sign Up</h2>
+		<form action="{% url 'sign_up' %}" method="POST">
+			{% csrf_token %}
+			{% if user_name_available and password_is_valid and password_match %}
+			<pre>User Name         : <input type="text" name="user_name" value=""></pre>
+			<pre>Password          : <input type="text" name="password"></pre>
+			<pre>Confirm Password  : <input type="password" name="password_1"></pre>
+			<button type="submit" name="action" >Sign Up</button>
+
+			{% elif not user_name_available %}
+			<pre>User Name         : <input type="text" name="user_name" value=""></pre>
+			<pre>Password          : <input type="text" name="password" value="{{password}}"></pre>
+			<pre>Confirm Password  : <input type="password" name="password_1" value="{{password}}"></pre>
+			<button type="submit" name="action" >Sign Up</button>
+			<p style="color: red;" >User Name not available</p>
+
+			{% elif not password_is_valid %}
+			<pre>User Name         : <input type="text" name="user_name" value="{{user_name}}"></pre>
+			<pre>Password          : <input type="text" name="password"></pre>
+			<pre>Confirm Password  : <input type="password" name="password_1"></pre>
+			<button type="submit" name="action" >Sign Up</button>
+			<p style="color: red;" >Please try different password</p>
+
+			{% elif not password_match %}
+			<pre>User Name         : <input type="text" name="user_name" value="{{user_name}}"></pre>
+			<pre>Password          : <input type="text" name="password" value="{{password}}"></pre>
+			<pre>Confirm Password  : <input type="password" name="password_1"></pre>
+			<button type="submit" name="action" >Sign Up</button>
+			<p style="color: red;" >Both password should be match</p>
+
+			{% else %}
+			<pre>User Name         : <input type="text" name="user_name" value=""></pre>
+			<pre>Password          : <input type="text" name="password"></pre>
+			<pre>Confirm Password  : <input type="password" name="password_1"></pre>
+			<button type="submit" name="action" >Sign Up</button>
+			
+			{% endif %}
+		</form>
+	</div>
+{% endblock content %}
