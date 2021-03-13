@@ -26,6 +26,7 @@ def valid_password(password):
 # Create your views here.
 def home(request):
 	global data
+	print(data['status'])
 	return render(request,'home/home.html',data)
 
 def log_in(request):
